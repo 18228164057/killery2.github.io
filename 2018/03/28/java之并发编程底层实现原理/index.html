@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="java之并发编程底层实现原理"/>
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="Hexo"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://yoursite.com"/>
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>Hexo</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">java之并发编程底层实现原理</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By John Doe</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-03-28</span>
+            <span class="time">16:17:58</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h2 id="JAVA内存模型（java-memory-model）"><a href="#JAVA内存模型（java-memory-model）" class="headerlink" title="JAVA内存模型（java memory model）"></a><a href="http://www.importnew.com/19612.html" target="_blank" rel="noopener">JAVA内存模型（java memory model）</a></h2><p><img src="\images\JMM.jpg" alt="java内存模型"></p>
+<h3 id="并发编程模型的两个关键问题"><a href="#并发编程模型的两个关键问题" class="headerlink" title="并发编程模型的两个关键问题"></a>并发编程模型的两个关键问题</h3><ul>
+<li>线程之间如何通信以及线程之间如何同步（这里的线程是指并发执行的活动实体）。</li>
+<li><p>通信是指线程之间以何种机制来交换信息。在命令式编程中，线程的通信机制有两种：共享内存和消息传递。</p>
+<h2 id="volatile的应用"><a href="#volatile的应用" class="headerlink" title="volatile的应用"></a><a href="http://www.importnew.com/18126.html" target="_blank" rel="noopener">volatile</a>的应用</h2><h4 id="volatile的特性"><a href="#volatile的特性" class="headerlink" title="volatile的特性"></a>volatile的特性</h4><p> 理解volatile特性的好方法是把对 volatile变量的单个读/写，看成是使用同一个锁对这些单个读/写操作做了同步。下面通过具体的示例来说明：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class VolatileFeaturesExample&#123;</span><br><span class="line">    volatile long vl = 0L;</span><br><span class="line"> </span><br><span class="line"> public void <span class="built_in">set</span>(long l)&#123;</span><br><span class="line">     vl = 1;</span><br><span class="line"> &#125;</span><br><span class="line"> public void <span class="function"><span class="title">getAndIncrement</span></span>()&#123;</span><br><span class="line">     vl++;</span><br><span class="line"> &#125; </span><br><span class="line"> public long <span class="function"><span class="title">get</span></span>()&#123;</span><br><span class="line">     <span class="built_in">return</span> vl;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 假设有多个线程分别调用上面的程序的3个方法，这个程序在语义上和下面的程序等价。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class VolatileFeaturesExample&#123;</span><br><span class="line">    long vl = 0L;</span><br><span class="line"> </span><br><span class="line"> public synchronized void <span class="built_in">set</span>(long l)&#123;</span><br><span class="line">     vl = 1;</span><br><span class="line">    &#125;</span><br><span class="line"> public void <span class="function"><span class="title">getAndIncrement</span></span>()&#123;</span><br><span class="line">     long temp = get();</span><br><span class="line">        temp += 1L;</span><br><span class="line">        <span class="built_in">set</span>(temp);		 </span><br><span class="line"> &#125;</span><br><span class="line"> public synchronized long <span class="function"><span class="title">get</span></span>()&#123;</span><br><span class="line">     <span class="built_in">return</span> vl;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 如上面示例程序所示，一个volatile变量的单个读/写操作，与一个普通变量的读/写操作都是使用同一个锁同步，它们之间的执行效果相同。</p>
+<h4 id="volatile实现可见性"><a href="#volatile实现可见性" class="headerlink" title="volatile实现可见性"></a>volatile实现可见性</h4></li>
+</ul>
+<ul>
+<li>能够保证volatile变量的可见性。</li>
+<li>不能保证volatile变量复合操作的原子性。<h6 id="如何实现？-通过加入内存屏障和禁止重排序优化来实现。"><a href="#如何实现？-通过加入内存屏障和禁止重排序优化来实现。" class="headerlink" title="如何实现？ 通过加入内存屏障和禁止重排序优化来实现。"></a>如何实现？ 通过加入内存屏障和禁止重排序优化来实现。</h6></li>
+</ul>
+<ul>
+<li>对volatile变量执行写操作时，会在写操作后加入一条Store屏障指令。</li>
+<li>对volatile变量执行读操作时，会在读操作前加入一条load屏障指令。<h2 id="synchronized-重量级锁-的应用"><a href="#synchronized-重量级锁-的应用" class="headerlink" title="synchronized(重量级锁)的应用"></a><a href="http://www.importnew.com/21866.html" target="_blank" rel="noopener">synchronized</a>(重量级锁)的应用</h2> 先来看下synchronized实现同步的基础：Java中的每一个对象都可以作为锁。具体表现为以下3种形式。</li>
+<li>对于普通同步方法，锁是当前示例对象。</li>
+<li>对于静态同步方法，锁是当前类的Class对象。</li>
+<li>对于同步方法块，锁是Synchronized括号里配置的对象。<h4 id="JMM关于synchronized的两条规定"><a href="#JMM关于synchronized的两条规定" class="headerlink" title="JMM关于synchronized的两条规定"></a>JMM关于synchronized的两条规定</h4></li>
+<li>线程解锁前，必须把共享变量的最新值刷新到主内存中去。</li>
+<li>线程加锁时，将清空工作内存中共享变量的值，从而使用共享变量时需要从主内存中重新读取最新的值（加锁与解锁需要是同一把锁）。<br>通过两条规定，保证了线程解锁前对共享变量的修改在下次加锁前对其他线程可见。<h4 id="线程执行互斥锁的过程："><a href="#线程执行互斥锁的过程：" class="headerlink" title="线程执行互斥锁的过程："></a>线程执行互斥锁的过程：</h4></li>
+<li>获得互斥锁</li>
+<li>清空工作</li>
+<li>从主内存中拷贝变量的最新副本到工作内存</li>
+<li>执行代码</li>
+<li>将更改后的共享变量刷新到主内存</li>
+<li>释放互斥锁<br> 用法示例：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class SyncThread implements Runnable &#123;</span><br><span class="line">   private static int count;</span><br><span class="line"> </span><br><span class="line">   public <span class="function"><span class="title">SyncThread</span></span>() &#123;</span><br><span class="line">      count = 0;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   public  void <span class="function"><span class="title">run</span></span>() &#123;</span><br><span class="line">      synchronized(this) &#123;</span><br><span class="line">         <span class="keyword">for</span> (int i = 0; i &lt; 5; i++) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">               System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + (count++));</span><br><span class="line">               Thread.sleep(100);</span><br><span class="line">            &#125; catch (InterruptedException e) &#123;</span><br><span class="line">               e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   public int <span class="function"><span class="title">getCount</span></span>() &#123;</span><br><span class="line">      <span class="built_in">return</span> count;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>synchronized的调用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SyncThread syncThread = new SyncThread();</span><br><span class="line">Thread thread1 = new Thread(syncThread, <span class="string">"SyncThread1"</span>);</span><br><span class="line">Thread thread2 = new Thread(syncThread, <span class="string">"SyncThread2"</span>);</span><br><span class="line">thread1.start();</span><br><span class="line">thread2.start();</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>  结果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SyncThread1:0</span><br><span class="line">SyncThread1:1</span><br><span class="line">SyncThread1:2</span><br><span class="line">SyncThread1:3</span><br><span class="line">SyncThread1:4</span><br><span class="line">SyncThread2:5</span><br><span class="line">SyncThread2:6</span><br><span class="line">SyncThread2:7</span><br><span class="line">SyncThread2:8</span><br><span class="line">SyncThread2:9*</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p> 当两个并发线程(thread1和thread2)访问同一个对象(syncThread)中的synchronized代码块时，在同一时刻只能有一个线程得到执行，另一个线程受阻塞，必须等待当前线程执行完这个代码块以后才能执行该代码块。Thread1和thread2是互斥的，因为在执行synchronized代码块时会锁定当前的对象，只有执行完该代码块才能释放该对象锁，下一个线程才能执行并锁定该对象。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p> 本文对Java 并发编程中的理论基础进行了讲解，有些东西在后续的分析中还会做更详细的讨论，如可见性、顺序性等。后续的文章都会以本章内容作为理论基础来讨论。如果大家能够很好的理解上述内容，相信无论是去理解其他并发编程的文章还是在平时的并发编程的工作中，都能够对大家有很好的帮助。</p>
+</blockquote>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
