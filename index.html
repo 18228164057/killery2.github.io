@@ -310,40 +310,16 @@
       
         
           
-            <h3 id="1、面向对象的特征有哪些方面？"><a href="#1、面向对象的特征有哪些方面？" class="headerlink" title="1、面向对象的特征有哪些方面？"></a>1、面向对象的特征有哪些方面？</h3><blockquote>
-<p>答：面向对象的特征主要有以下几个方面：<br>  <font color="#dd0000">抽象：</font><font face="黑体">抽象是将一类对象的共同特征总结出来构造类的过程，包括数据抽象和行为抽象两方面。抽象只关注对象有哪些属性和行为，并不关注这些行为的细节是什么。<br>  <font color="#dd0000">继承：</font>继承是从已有类得到继承信息创建新类的过程。提供继承信息的类被称为父类（超类、基类）；得到继承信息的类被称为子类（派生类）。继承让变化中的软件系统有了一定的延续性，同时继承也是封装程序中可变因素的重要手段（如果不能理解请阅读阎宏博士的《Java与模式》或《设计模式精解》中关于桥梁模式的部分）。<br>  <font color="#dd0000">封装：</font>通常认为封装是把数据和操作数据的方法绑定起来，对数据的访问只能通过已定义的接口。面向对象的本质就是将现实世界描绘成一系列完全自治、封闭的对象。我们在类中编写的方法就是对实现细节的一种封装；我们编写一个类就是对数据和数据操作的封装。可以说，封装就是隐藏一切可隐藏的东西，只向外界提供最简单的编程接口（可以想想普通洗衣机和全自动洗衣机的差别，明显全自动洗衣机封装更好因此操作起来更简单；我们现在使用的智能手机也是封装得足够好的，因为几个按键就搞定了所有的事情）。<br>  <font color="#dd0000">多态性：</font>多态性是指允许不同子类型的对象对同一消息作出不同的响应。简单的说就是用同样的对象引用调用同样的方法但是做了不同的事情。多态性分为编译时的多态性和运行时的多态性。如果将对象的方法视为对象向外界提供的服务，那么运行时的多态性可以解释为：当A系统访问B系统提供的服务时，B系统有多种提供服务的方式，但一切对A系统来说都是透明的（就像电动剃须刀是A系统，它的供电系统是B系统，B系统可以使用电池供电或者用交流电，甚至还有可能是太阳能，A系统只会通过B类对象调用供电的方法，但并不知道供电系统的底层实现是什么，究竟通过何种方式获得了动力）。方法重载（overload）实现的是编译时的多态性（也称为前绑定），而方法重写（override）实现的是运行时的多态性（也称为后绑定）。运行时的多态是面向对象最精髓的东西，要实现多态需要做两件事：1). 方法重写（子类继承父类并重写父类中已有的或抽象的方法）；2). 对象造型（用父类型引用引用子类型对象，这样同样的引用调用同样的方法就会根据子类对象的不同而表现出不同的行为）。</font>   </p>
-</blockquote>
-<h3 id="2、访问修饰符public-private-protected-以及不写（默认）时的区别？"><a href="#2、访问修饰符public-private-protected-以及不写（默认）时的区别？" class="headerlink" title="2、访问修饰符public,private,protected,以及不写（默认）时的区别？"></a>2、访问修饰符public,private,protected,以及不写（默认）时的区别？</h3><p><img src="https://i.loli.net/2018/04/04/5ac4761325252.jpg" alt="范围">   </p>
-<blockquote>
-<p>类的成员不写访问修饰时默认为default。默认对于同一个包中的其他类相当于公开（public），对于不是同一个包中的其他类相当于私有（private）。受保护（protected）对子类相当于公开，对不是同一包中的没有父子关系的类相当于私有。Java中，外部类的修饰符只能是public或默认，类的成员（包括内部类）的修饰符可以是以上四种。   </p>
-</blockquote>
-<h3 id="3、String-是最基本的数据类型吗？"><a href="#3、String-是最基本的数据类型吗？" class="headerlink" title="3、String 是最基本的数据类型吗？"></a>3、String 是最基本的数据类型吗？</h3><blockquote>
-<p>答：不是。Java中的<font color="#dd0000">基本数据类型</font>只有8个：<font color="#dd0000">byte、short、int、long、float、double、char、boolean；</font>除了基本类型（primitive type）和枚举类型（enumeration type），剩下的都是引用类型（reference type）。   </p>
-</blockquote>
-<h3 id="4、float-f-3-4-是否正确？"><a href="#4、float-f-3-4-是否正确？" class="headerlink" title="4、float f=3.4;是否正确？"></a>4、float f=3.4;是否正确？</h3><blockquote>
-<p>答:不正确。3.4是双精度数，将双精度型（double）赋值给浮点型（float）属于下转型（down-casting，也称为窄化）会造成精度损失，因此需要强制类型转换float f =(float)3.4; 或者写成float f =3.4F;。   </p>
-</blockquote>
-<h3 id="5、short-s1-1-s1-s1-1-有错吗-short-s1-1-s1-1-有错吗？"><a href="#5、short-s1-1-s1-s1-1-有错吗-short-s1-1-s1-1-有错吗？" class="headerlink" title="5、short s1 = 1; s1 = s1 + 1;有错吗?short s1 = 1; s1 += 1;有错吗？"></a>5、short s1 = 1; s1 = s1 + 1;有错吗?short s1 = 1; s1 += 1;有错吗？</h3><blockquote>
-<p>答：对于short s1 = 1; s1 = s1 + 1;由于1是int类型，因此s1+1运算结果也是int 型，需要强制转换类型才能赋值给short型。而short s1 = 1; s1 += 1;可以正确编译，因为s1+= 1;相当于s1 = (short)(s1 + 1);其中有隐含的强制类型转换。</p>
-</blockquote>
-<h3 id="6、Java有没有goto？"><a href="#6、Java有没有goto？" class="headerlink" title="6、Java有没有goto？"></a>6、Java有没有goto？</h3><blockquote>
-<p>答：goto 是Java中的保留字，在目前版本的Java中没有使用。（根据James Gosling（Java之父）编写的《The Java Programming Language》一书的附录中给出了一个Java关键字列表，其中有goto和const，但是这两个是目前无法使用的关键字，因此有些地方将其称之为保留字，其实保留字这个词应该有更广泛的意义，因为熟悉C语言的程序员都知道，在系统类库中使用过的有特殊意义的单词或单词的组合都被视为保留字） </p>
-</blockquote>
-<h3 id="7、int和Integer有什么区别？"><a href="#7、int和Integer有什么区别？" class="headerlink" title="7、int和Integer有什么区别？"></a>7、int和Integer有什么区别？</h3><blockquote>
-<p>答：Java是一个近乎纯洁的面向对象编程语言，但是为了编程的方便还是引入了基本数据类型，但是为了能够将这些基本数据类型当成对象操作，Java为每一个基本数据类型都引入了对应的包装类型（wrapper class），int的包装类就是Integer，从Java 5开始引入了自动装箱/拆箱机制，使得二者可以相互转换。<br>Java 为每个原始类型提供了包装类型：<br>原始类型: boolean，char，byte，short，int，long，float，double<br>包装类型：Boolean，Character，Byte，Short，Integer，Long，Float，Double</p>
-</blockquote>
-<h3 id="8、-amp-和-amp-amp-的区别？"><a href="#8、-amp-和-amp-amp-的区别？" class="headerlink" title="8、&amp;和&amp;&amp;的区别？"></a>8、&amp;和&amp;&amp;的区别？</h3><blockquote>
-<p>答：&amp;运算符有两种用法：(1)按位与；(2)逻辑与。&amp;&amp;运算符是短路与运算。逻辑与跟短路与的差别是非常巨大的，虽然二者都要求运算符左右两端的布尔值都是true整个表达式的值才是true。&amp;&amp;之所以称为短路运算是因为，如果&amp;&amp;左边的表达式的值是false，右边的表达式会被直接短路掉，不会进行运算。很多时候我们可能都需要用&amp;&amp;而不是&amp;，例如在验证用户登录时判定用户名不是null而且不是空字符串，应当写为：username != null &amp;&amp;!username.equals(“”)，二者的顺序不能交换，更不能用&amp;运算符，因为第一个条件如果不成立，根本不能进行字符串的equals比较，否则会产生NullPointerException异常。注意：逻辑或运算符（|）和短路或运算符（||）的差别也是如此。 </p>
-</blockquote>
-<p>这是一个代码区块：</p>
-<pre><code>public static void main(){
-    system.sava
-
-
-
-}
-</code></pre>
-          
+          1、面向对象的特征有哪些方面？
+答：面向对象的特征主要有以下几个方面：  抽象：抽象是将一类对象的共同特征总结出来构造类的过程，包括数据抽象和行为抽象两方面。抽象只关注对象有哪些属性和行为，并不关注这些行为的细节是什么。  继承：继承是从已有类得到继承信息创建新类的过程。提供继承信息的类被称为父类（
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/killerhh.github.io/2018/04/04/Java面试基础题/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -463,19 +439,26 @@
       
         
           
-            <p><img src="https://i.loli.net/2018/04/03/5ac326491776d.jpg" alt="a">   </p>
-<p><img src="https://i.loli.net/2018/04/03/5ac32695d24e7.jpg" alt="b">   </p>
-<p><img src="https://i.loli.net/2018/04/03/5ac326fd8b8d8.jpg" alt="c">   </p>
-<p><img src="https://i.loli.net/2018/04/03/5ac327003b40b.jpg" alt="d">    </p>
-<p><img src="https://i.loli.net/2018/04/03/5ac3270074bc8.jpg" alt="e">   </p>
-<p><img src="https://i.loli.net/2018/04/03/5ac327013f23a.jpg" alt="f">   </p>
-<p><img src="https://i.loli.net/2018/04/03/5ac3270172775.jpg" alt="g">   </p>
-<p><img src="https://i.loli.net/2018/04/03/5ac32701ba706.jpg" alt="h">   </p>
-<p><img src="https://i.loli.net/2018/04/03/5ac3270257ec9.jpg" alt="i">   </p>
-<p><img src="https://i.loli.net/2018/04/03/5ac327025e31a.jpg" alt="j">   </p>
-<p><img src="https://i.loli.net/2018/04/03/5ac327029dc16.jpg" alt="k"></p>
+             
+   
+   
+    
+   
+   
+   
+   
+   
+   
+
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/killerhh.github.io/2018/04/03/images/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -595,49 +578,19 @@
       
         
           
-            <h2 id="JAVA内存模型（java-memory-model）"><a href="#JAVA内存模型（java-memory-model）" class="headerlink" title="JAVA内存模型（java memory model）"></a><a href="http://www.importnew.com/19612.html" target="_blank" rel="noopener">JAVA内存模型（java memory model）</a></h2><p><img src="https://i.loli.net/2018/04/02/5ac224f32f997.jpg" alt="java内存模型"></p>
-<h3 id="并发编程模型的两个关键问题"><a href="#并发编程模型的两个关键问题" class="headerlink" title="并发编程模型的两个关键问题"></a>并发编程模型的两个关键问题</h3><ul>
-<li>线程之间如何通信以及线程之间如何同步（这里的线程是指并发执行的活动实体）。</li>
-<li><p>通信是指线程之间以何种机制来交换信息。在命令式编程中，线程的通信机制有两种：共享内存和消息传递。</p>
-<h2 id="volatile的应用"><a href="#volatile的应用" class="headerlink" title="volatile的应用"></a><a href="http://www.importnew.com/18126.html" target="_blank" rel="noopener">volatile</a>的应用</h2><h4 id="volatile的特性"><a href="#volatile的特性" class="headerlink" title="volatile的特性"></a>volatile的特性</h4><p> 理解volatile特性的好方法是把对 volatile变量的单个读/写，看成是使用同一个锁对这些单个读/写操作做了同步。下面通过具体的示例来说明：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class VolatileFeaturesExample&#123;</span><br><span class="line">    volatile long vl = 0L;</span><br><span class="line"> </span><br><span class="line"> public void <span class="built_in">set</span>(long l)&#123;</span><br><span class="line">     vl = 1;</span><br><span class="line"> &#125;</span><br><span class="line"> public void <span class="function"><span class="title">getAndIncrement</span></span>()&#123;</span><br><span class="line">     vl++;</span><br><span class="line"> &#125; </span><br><span class="line"> public long <span class="function"><span class="title">get</span></span>()&#123;</span><br><span class="line">     <span class="built_in">return</span> vl;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 假设有多个线程分别调用上面的程序的3个方法，这个程序在语义上和下面的程序等价。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class VolatileFeaturesExample&#123;</span><br><span class="line">    long vl = 0L;</span><br><span class="line"> </span><br><span class="line"> public synchronized void <span class="built_in">set</span>(long l)&#123;</span><br><span class="line">     vl = 1;</span><br><span class="line">    &#125;</span><br><span class="line"> public void <span class="function"><span class="title">getAndIncrement</span></span>()&#123;</span><br><span class="line">     long temp = get();</span><br><span class="line">        temp += 1L;</span><br><span class="line">        <span class="built_in">set</span>(temp);		 </span><br><span class="line"> &#125;</span><br><span class="line"> public synchronized long <span class="function"><span class="title">get</span></span>()&#123;</span><br><span class="line">     <span class="built_in">return</span> vl;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 如上面示例程序所示，一个volatile变量的单个读/写操作，与一个普通变量的读/写操作都是使用同一个锁同步，它们之间的执行效果相同。</p>
-<h4 id="volatile实现可见性"><a href="#volatile实现可见性" class="headerlink" title="volatile实现可见性"></a>volatile实现可见性</h4></li>
-</ul>
-<ul>
-<li>能够保证volatile变量的可见性。</li>
-<li>不能保证volatile变量复合操作的原子性。<h6 id="如何实现？-通过加入内存屏障和禁止重排序优化来实现。"><a href="#如何实现？-通过加入内存屏障和禁止重排序优化来实现。" class="headerlink" title="如何实现？ 通过加入内存屏障和禁止重排序优化来实现。"></a>如何实现？ 通过加入内存屏障和禁止重排序优化来实现。</h6></li>
-</ul>
-<ul>
-<li>对volatile变量执行写操作时，会在写操作后加入一条Store屏障指令。</li>
-<li>对volatile变量执行读操作时，会在读操作前加入一条load屏障指令。<h2 id="synchronized-重量级锁-的应用"><a href="#synchronized-重量级锁-的应用" class="headerlink" title="synchronized(重量级锁)的应用"></a><a href="http://www.importnew.com/21866.html" target="_blank" rel="noopener">synchronized</a>(重量级锁)的应用</h2> 先来看下synchronized实现同步的基础：Java中的每一个对象都可以作为锁。具体表现为以下3种形式。</li>
-<li>对于普通同步方法，锁是当前示例对象。</li>
-<li>对于静态同步方法，锁是当前类的Class对象。</li>
-<li>对于同步方法块，锁是Synchronized括号里配置的对象。<h4 id="JMM关于synchronized的两条规定"><a href="#JMM关于synchronized的两条规定" class="headerlink" title="JMM关于synchronized的两条规定"></a>JMM关于synchronized的两条规定</h4></li>
-<li>线程解锁前，必须把共享变量的最新值刷新到主内存中去。</li>
-<li>线程加锁时，将清空工作内存中共享变量的值，从而使用共享变量时需要从主内存中重新读取最新的值（加锁与解锁需要是同一把锁）。<br>通过两条规定，保证了线程解锁前对共享变量的修改在下次加锁前对其他线程可见。<h4 id="线程执行互斥锁的过程："><a href="#线程执行互斥锁的过程：" class="headerlink" title="线程执行互斥锁的过程："></a>线程执行互斥锁的过程：</h4></li>
-<li>获得互斥锁</li>
-<li>清空工作</li>
-<li>从主内存中拷贝变量的最新副本到工作内存</li>
-<li>执行代码</li>
-<li>将更改后的共享变量刷新到主内存</li>
-<li>释放互斥锁<br> 用法示例：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class SyncThread implements Runnable &#123;</span><br><span class="line">   private static int count;</span><br><span class="line"> </span><br><span class="line">   public <span class="function"><span class="title">SyncThread</span></span>() &#123;</span><br><span class="line">      count = 0;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   public  void <span class="function"><span class="title">run</span></span>() &#123;</span><br><span class="line">      synchronized(this) &#123;</span><br><span class="line">         <span class="keyword">for</span> (int i = 0; i &lt; 5; i++) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">               System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + (count++));</span><br><span class="line">               Thread.sleep(100);</span><br><span class="line">            &#125; catch (InterruptedException e) &#123;</span><br><span class="line">               e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   public int <span class="function"><span class="title">getCount</span></span>() &#123;</span><br><span class="line">      <span class="built_in">return</span> count;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>synchronized的调用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SyncThread syncThread = new SyncThread();</span><br><span class="line">Thread thread1 = new Thread(syncThread, <span class="string">"SyncThread1"</span>);</span><br><span class="line">Thread thread2 = new Thread(syncThread, <span class="string">"SyncThread2"</span>);</span><br><span class="line">thread1.start();</span><br><span class="line">thread2.start();</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>  结果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SyncThread1:0</span><br><span class="line">SyncThread1:1</span><br><span class="line">SyncThread1:2</span><br><span class="line">SyncThread1:3</span><br><span class="line">SyncThread1:4</span><br><span class="line">SyncThread2:5</span><br><span class="line">SyncThread2:6</span><br><span class="line">SyncThread2:7</span><br><span class="line">SyncThread2:8</span><br><span class="line">SyncThread2:9*</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p> 当两个并发线程(thread1和thread2)访问同一个对象(syncThread)中的synchronized代码块时，在同一时刻只能有一个线程得到执行，另一个线程受阻塞，必须等待当前线程执行完这个代码块以后才能执行该代码块。Thread1和thread2是互斥的，因为在执行synchronized代码块时会锁定当前的对象，只有执行完该代码块才能释放该对象锁，下一个线程才能执行并锁定该对象。</p>
-</blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
-<p> 本文对Java 并发编程中的理论基础进行了讲解，有些东西在后续的分析中还会做更详细的讨论，如可见性、顺序性等。后续的文章都会以本章内容作为理论基础来讨论。如果大家能够很好的理解上述内容，相信无论是去理解其他并发编程的文章还是在平时的并发编程的工作中，都能够对大家有很好的帮助。</p>
-</blockquote>
-
-          
+          JAVA内存模型（java memory model）
+并发编程模型的两个关键问题
+线程之间如何通信以及线程之间如何同步（这里的线程是指并发执行的活动实体）。
+通信是指线程之间以何种机制来交换信息。在命令式编程中，线程的通信机制有两种：共享内存和消息传递。
+volatile的应用volatile的特
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/killerhh.github.io/2018/03/28/java之并发编程底层实现原理/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
